@@ -9,6 +9,7 @@ import orochi.blogging.repository.BlogRepository;
 
 import java.util.List;
 
+@Service
 @Data
 @AllArgsConstructor
 public class BlogService {

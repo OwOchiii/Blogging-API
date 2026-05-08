@@ -1,8 +1,13 @@
 package orochi.blogging.model;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +21,7 @@ import java.util.List;
 @Entity
 public class Blog {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -25,9 +31,10 @@ public class Blog {
     @Column(name = "content")
     private String content;
 
-    @Column(name = "cagetory")
+    @Column(name = "category")
     private String category;
 
+    @ElementCollection
     @Column(name = "tag")
     private List<String> tags;
 
@@ -37,8 +44,12 @@ public class Blog {
     @Column(name = "update_at")
     private LocalDateTime updateAt;
 
+    @PrePersist
+    @PreUpdate
     private void onCreated() {
-        this.createAt = LocalDateTime.now();
+        if (this.createAt == null) {
+            this.createAt = LocalDateTime.now();
+        }
         this.updateAt = LocalDateTime.now();
     }
 }
