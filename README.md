@@ -53,3 +53,4 @@ Using Unix/macOS:
 ./mvnw clean package
 ./mvnw spring-boot:run
 ```
+Featuring roadmap.sh project: https://roadmap.sh/projects/blogging-platform-api
